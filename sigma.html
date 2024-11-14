@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigma Button with Audio and Image Popout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 15px 32px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+        }
+
+        /* Modal Content (image) */
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Active button state */
+        .active {
+            background-color: #ff6347; /* Red */
+        }
+
+        .active:hover {
+            background-color: #e55347;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <button id="sigmaBtn">Press if u want to be sigma</button>
+    </div>
+
+    <!-- The Modal -->
+    <div id="sigmaModal" class="modal">
+        <!-- Modal content (Image) -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <!-- The Image that will be dynamically set -->
+            <img id="sigmaImage" src="" alt="Sigma Image">
+            <p>You are now Sigma!</p>
+        </div>
+    </div>
+
+    <!-- Audio element -->
+    <audio id="sigmaAudio" src="Rick-Roll-Sound-Effect.mp3" preload="auto"></audio>
+
+    <script>
+        // Get the button, modal, close button, image elements, and audio element
+        const sigmaBtn = document.getElementById("sigmaBtn");
+        const modal = document.getElementById("sigmaModal");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        const sigmaImage = document.getElementById("sigmaImage");
+        const sigmaAudio = document.getElementById("sigmaAudio");
+
+        // Replace this URL with your desired image
+        const sigmaImageUrl = "rickroll.jpg"; // Example image URL
+
+        // When the user clicks the button, open the modal
+        sigmaBtn.addEventListener("click", function() {
+            // Change button style and disable it
+            sigmaBtn.classList.add("active");
+            sigmaBtn.disabled = true;
+            sigmaBtn.textContent = "You're Sigma Now!";
+            
+            // Dynamically set the image source
+            sigmaImage.src = sigmaImageUrl;  // You can change this to any image URL
+
+            // Show the modal
+            modal.style.display = "block";
+
+            // Play the audio after the modal appears
+            sigmaAudio.play();
+        });
+
+        // When the user clicks the close button, close the modal
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            sigmaAudio.pause(); // Pause audio when modal is closed
+            sigmaAudio.currentTime = 0; // Reset audio to the beginning
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                sigmaAudio.pause(); // Pause audio when modal is closed
+                sigmaAudio.currentTime = 0; // Reset audio to the beginning
+            }
+        }
+    </script>
+
+</body>
+</html>
